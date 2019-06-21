@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.txtModel = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtPricePerItem = new System.Windows.Forms.TextBox();
+            this.txtID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.txtOS = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.nudQtyInStock = new System.Windows.Forms.NumericUpDown();
+            this.txtNewOrUsed = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQtyInStock)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
@@ -57,29 +57,30 @@
             this.label12.TabIndex = 65;
             this.label12.Text = "New or Used:";
             // 
-            // textBox8
+            // txtDescription
             // 
-            this.textBox8.Location = new System.Drawing.Point(122, 83);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(277, 48);
-            this.textBox8.TabIndex = 63;
+            this.txtDescription.Location = new System.Drawing.Point(122, 83);
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(277, 48);
+            this.txtDescription.TabIndex = 63;
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(12, 323);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 32);
-            this.button2.TabIndex = 56;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(12, 323);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(81, 32);
+            this.btnCancel.TabIndex = 56;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // textBox3
+            // txtModel
             // 
-            this.textBox3.Location = new System.Drawing.Point(122, 57);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(212, 20);
-            this.textBox3.TabIndex = 54;
+            this.txtModel.Location = new System.Drawing.Point(122, 57);
+            this.txtModel.Name = "txtModel";
+            this.txtModel.Size = new System.Drawing.Size(212, 20);
+            this.txtModel.TabIndex = 54;
             // 
             // label5
             // 
@@ -109,19 +110,19 @@
             this.label7.TabIndex = 50;
             this.label7.Text = "Price per Item:";
             // 
-            // textBox1
+            // txtPricePerItem
             // 
-            this.textBox1.Location = new System.Drawing.Point(122, 165);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(77, 20);
-            this.textBox1.TabIndex = 52;
+            this.txtPricePerItem.Location = new System.Drawing.Point(122, 165);
+            this.txtPricePerItem.Name = "txtPricePerItem";
+            this.txtPricePerItem.Size = new System.Drawing.Size(77, 20);
+            this.txtPricePerItem.TabIndex = 52;
             // 
-            // textBox5
+            // txtID
             // 
-            this.textBox5.Location = new System.Drawing.Point(122, 31);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(212, 20);
-            this.textBox5.TabIndex = 68;
+            this.txtID.Location = new System.Drawing.Point(122, 31);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(212, 20);
+            this.txtID.TabIndex = 68;
             // 
             // label1
             // 
@@ -132,21 +133,22 @@
             this.label1.TabIndex = 67;
             this.label1.Text = "Item ID:";
             // 
-            // button3
+            // btnOK
             // 
-            this.button3.Location = new System.Drawing.Point(309, 323);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 32);
-            this.button3.TabIndex = 69;
-            this.button3.Text = "OK";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnOK.Location = new System.Drawing.Point(309, 323);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(81, 32);
+            this.btnOK.TabIndex = 69;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // textBox6
+            // txtOS
             // 
-            this.textBox6.Location = new System.Drawing.Point(122, 137);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(212, 20);
-            this.textBox6.TabIndex = 71;
+            this.txtOS.Location = new System.Drawing.Point(122, 137);
+            this.txtOS.Name = "txtOS";
+            this.txtOS.Size = new System.Drawing.Size(212, 20);
+            this.txtOS.TabIndex = 71;
             // 
             // label2
             // 
@@ -175,49 +177,50 @@
             this.label9.TabIndex = 73;
             this.label9.Text = "Item Description:";
             // 
-            // numericUpDown1
+            // nudQtyInStock
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(122, 192);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(77, 20);
-            this.numericUpDown1.TabIndex = 74;
+            this.nudQtyInStock.Location = new System.Drawing.Point(122, 192);
+            this.nudQtyInStock.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudQtyInStock.Name = "nudQtyInStock";
+            this.nudQtyInStock.Size = new System.Drawing.Size(77, 20);
+            this.nudQtyInStock.TabIndex = 74;
             // 
-            // comboBox1
+            // txtNewOrUsed
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "New",
-            "Used"});
-            this.comboBox1.Location = new System.Drawing.Point(122, 228);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(96, 21);
-            this.comboBox1.TabIndex = 75;
+            this.txtNewOrUsed.Location = new System.Drawing.Point(122, 228);
+            this.txtNewOrUsed.Name = "txtNewOrUsed";
+            this.txtNewOrUsed.Size = new System.Drawing.Size(77, 20);
+            this.txtNewOrUsed.TabIndex = 75;
             // 
             // frmItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(411, 367);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.txtNewOrUsed);
+            this.Controls.Add(this.nudQtyInStock);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtOS);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.txtID);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.txtModel);
+            this.Controls.Add(this.txtPricePerItem);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Name = "frmItem";
             this.Text = "frmItem";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQtyInStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,21 +228,21 @@
 
         #endregion
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txtModel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtPricePerItem;
+        private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.TextBox txtOS;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.NumericUpDown nudQtyInStock;
+        private System.Windows.Forms.TextBox txtNewOrUsed;
     }
 }

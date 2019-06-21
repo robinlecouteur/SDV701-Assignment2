@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtImportCountry = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox2
+            // txtImportCountry
             // 
-            this.textBox2.Location = new System.Drawing.Point(122, 264);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(120, 20);
-            this.textBox2.TabIndex = 76;
+            this.txtImportCountry.Location = new System.Drawing.Point(122, 264);
+            this.txtImportCountry.Name = "txtImportCountry";
+            this.txtImportCountry.Size = new System.Drawing.Size(120, 20);
+            this.txtImportCountry.TabIndex = 76;
             // 
             // label6
             // 
@@ -53,9 +53,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(411, 364);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtImportCountry);
             this.Name = "frmNewItem";
-            this.Controls.SetChildIndex(this.textBox2, 0);
+            this.Controls.SetChildIndex(this.txtImportCountry, 0);
             this.Controls.SetChildIndex(this.label6, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -64,7 +64,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtImportCountry;
         private System.Windows.Forms.Label label6;
     }
 }

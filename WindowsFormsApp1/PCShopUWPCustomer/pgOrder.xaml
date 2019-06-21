@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="PCShopUWPCustomer.pgOrder"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PCShopUWPCustomer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="190,2,0,0" Text="Customer Details" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="110,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Name:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="65,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Item Model:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Item Description:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="48,359,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Price Per Item:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,399,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Qty in Stock:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="55,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="New or Used:"/>
+        <TextBox x:Name="txtCustName" HorizontalAlignment="Left" Margin="190,48,0,0" Text="" VerticalAlignment="Top" Width="250"/>
+        <TextBox x:Name="txtModel" HorizontalAlignment="Left" Margin="190,192,0,0" Text="" VerticalAlignment="Top" Width="191" IsReadOnly="True" Background="#B8B8B8B8"/>
+        <TextBox x:Name="txtDescription" HorizontalAlignment="Left" Margin="190,234,0,0" Text="" VerticalAlignment="Top" Width="408" Height="70" IsReadOnly="True" Background="#B8B8B8B8"/>
+        <TextBox x:Name="txtPricePerItem" HorizontalAlignment="Left" Margin="190,355,0,0" Text="" VerticalAlignment="Top" Width="191" IsReadOnly="True" Background="#B8B8B8B8"/>
+        <TextBox x:Name="txtQtyInStock" HorizontalAlignment="Left" Margin="190,397,0,0" Text="" VerticalAlignment="Top" Width="100" IsReadOnly="True" Background="#B8B8B8B8"/>
+        <TextBox x:Name="txtNewOrUsed" HorizontalAlignment="Left" Margin="190,314,0,0" Text="" VerticalAlignment="Top" Width="100" IsReadOnly="True" Background="#B8B8B8B8"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="26,591,0,0" VerticalAlignment="Top" Width="127"/>
+        <Button x:Name="btnConfirmOrder" Content="Confirm Order" HorizontalAlignment="Left" Margin="874,593,0,0" VerticalAlignment="Top" Width="129" Click="btnConfirmOrder_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="36,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Phone Number:"/>
+        <TextBox x:Name="txtCustPh" HorizontalAlignment="Left" Margin="190,93,0,0" Text="" VerticalAlignment="Top" Width="250"/>
+        <TextBlock HorizontalAlignment="Left" Margin="190,148,0,0" Text="Item Details" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="56,452,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Qty to Order:"/>
+        <TextBox x:Name="txtQtyToOrder" HorizontalAlignment="Left" Margin="190,451,0,0" Text="" VerticalAlignment="Top" Width="102"/>
+        <TextBlock HorizontalAlignment="Left" Margin="25,539,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Total Order Price:"/>
+        <TextBox x:Name="txtTotalOrderPrice" HorizontalAlignment="Left" Margin="190,535,0,0" Text="" VerticalAlignment="Top" Width="191" IsReadOnly="True" Background="#B8B8B8B8"/>
+    </Grid>
+</Page>

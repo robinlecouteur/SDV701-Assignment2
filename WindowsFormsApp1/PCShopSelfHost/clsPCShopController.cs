@@ -10,118 +10,47 @@ namespace PCShopSelfHost
 {
     public class clsPCShopController : ApiController
     {
-        public List<string> GetCategoryNames()
-        {
-            DataTable lcResult = clsDbConnection.GetDataTable("SELECT Name FROM Category", null);
-            List<string> lcNames = new List<string>();
-            foreach (DataRow dr in lcResult.Rows)
-                lcNames.Add((string)dr[0]);
-            return lcNames;
-        }
+        // ####################################################################################
+        // ################################     CATEGORY     ##################################
+        // ####################################################################################
 
-        public clsCategory GetCategory(string Name)
+        public List<clsCategory> GetCategoryList()
+        {
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Category", null);
+            List<clsCategory> lcCategoryList = new List<clsCategory>();
+            foreach (DataRow dr in lcResult.Rows)
+                lcCategoryList.Add(dataRow2Category(dr));
+            return lcCategoryList;
+        }
+        public clsCategory GetCategory(int ID)
         {
             Dictionary<string, object> par = new Dictionary<string, object>(1);
-            par.Add("Name", Name);
+            par.Add("ID", ID);
             DataTable lcResult =
-            clsDbConnection.GetDataTable("SELECT * FROM Category WHERE Name = @Name", par);
+            clsDbConnection.GetDataTable("SELECT * FROM Category WHERE ID = @ID", par);
             if (lcResult.Rows.Count > 0)
                 return new clsCategory()
                 {
+                    ID = (int)lcResult.Rows[0]["ID"],
                     Name = (string)lcResult.Rows[0]["Name"],
                     Description = (string)lcResult.Rows[0]["Description"],
-                    ItemsList = getCategoryItems(Name)
+                    ItemsList = getCategoryItems(ID)
                 };
             else
                 return null;
         }
+       
 
-        private List<clsAllItem> getCategoryItems(string prName)
-        {
-            Dictionary<string, object> par = new Dictionary<string, object>(1);
-            par.Add("Name", prName);
-            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Item WHERE CategoryName = @Name", par);
-            List<clsAllItem> lcItems = new List<clsAllItem>();
-            foreach (DataRow dr in lcResult.Rows) lcItems.Add(dataRow2AllItem(dr));
-            return lcItems;
-        }
-
-        private clsAllItem dataRow2AllItem(DataRow prDataRow)
-        {
-            return new clsAllItem()
-            {
-                
-                Model = Convert.ToString(prDataRow["Model"]),
-                Description = Convert.ToString(prDataRow["Description"]),
-                OperatingSystem = Convert.ToString(prDataRow["OperatingSystem"]),
-                Price = Convert.ToDecimal(prDataRow["Price"]),
-                QtyInStock = Convert.ToInt32(prDataRow["QtyInStock"]),
-                LastModified = Convert.ToDateTime(prDataRow["DateModified"]),
-                NewOrUsed = Convert.ToChar(prDataRow["NewOrUsed"]),
-                Condition = Convert.ToString(prDataRow["Condition"]),
-                ManufactureDate = Convert.ToDateTime(prDataRow["ManufactureDate"]),
-                ImportCountry = Convert.ToString(prDataRow["ImportCountry"]),
-                CategoryName = Convert.ToString(prDataRow["CategoryName"])
-            };
-        }
-
-        //Old Artist Code
-        //public string PutArtist(clsArtist prArtist)
-        //{ // update
-        //    try
-        //    {
-        //        int lcRecCount = clsDbConnection.Execute(
-        //        "UPDATE Artist " +
-        //        "SET Speciality = @Speciality, Phone = @Phone " +
-        //        "WHERE Name = @Name",
-        //        prepareArtistParameters(prArtist));
-        //        if (lcRecCount == 1)
-        //            return "One artist updated";
-        //        else
-        //            return "Unexpected artist update count: " + lcRecCount;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ex.GetBaseException().Message;
-        //    }
-        //}
-        //public string PostArtist(clsArtist prArtist)
-        //{ // insert
-        //    try
-        //    {
-        //        int lcRecCount = clsDbConnection.Execute(
-        //        "INSERT INTO Artist (Speciality, Phone, Name)" +
-        //        "VALUES (@Speciality,@Phone,@Name)",
-        //        prepareArtistParameters(prArtist));
-        //        if (lcRecCount == 1)
-        //            return "One artist added";
-        //        else
-        //            return "Unexpected artist insert count: " + lcRecCount;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ex.GetBaseException().Message;
-        //    }
-        //}
-        //private Dictionary<string, object> prepareArtistParameters(clsArtist prArtist)
-        //{
-        //    Dictionary<string, object> par = new Dictionary<string, object>(3);
-        //    par.Add("Name", prArtist.Name);
-        //    par.Add("Speciality", prArtist.Speciality);
-        //    par.Add("Phone", prArtist.Phone);
-        //    return par;
-        //}
-
-
-
-
+        // ####################################################################################
+        // ##################################     ITEM     ####################################
+        // ####################################################################################
         public string DeleteItem(clsAllItem prItem)
         { // delete
             try
             {
                 int lcRecCount = clsDbConnection.Execute(
                 "DELETE FROM Item " +
-                "WHERE Model = @Model AND CategoryName = @CategoryName",
+                "WHERE ID = @ID AND CategoryID = @CategoryID",
                 prepareItemParameters(prItem));
                 if (lcRecCount == 1)
                     return "One item deleted";
@@ -136,15 +65,25 @@ namespace PCShopSelfHost
         { // update 
             try
             {
-                int lcRecCount = clsDbConnection.Execute(
-                "UPDATE Item " +
-                "SET Model = @Model, Description = @Description, OperatingSystem = @OperatingSystem, Price = @Price, QtyInStock = @QtyInStock, LastModified = @LastModified, " +
-                "NewOrUsed = @NewOrUsed,Condition = @Condition, ManufactureDate = @ManufactureDate, ImportCountry = @ImportCountry, CategoryName = @CategoryName" +
-                "WHERE Model = @Model AND CategoryName = @CategoryName",
-                prepareItemParameters(prItem));
-                if (lcRecCount == 1)
-                    return "One item updated";
-                else return "Unexpected item update count: " + lcRecCount;
+                if (prItem.LastModified == (GetItem(prItem.ID)).LastModified)
+                {
+                    prItem.LastModified = DateTime.Now;
+
+                    int lcRecCount = clsDbConnection.Execute(
+                    "UPDATE Item " +
+                    "SET Model = @Model, Description = @Description, OperatingSystem = @OperatingSystem, Price = @Price, QtyInStock = @QtyInStock, LastModified = @LastModified, " +
+                    "NewOrUsed = @NewOrUsed,Condition = @Condition, ManufactureDate = @ManufactureDate, ImportCountry = @ImportCountry, CategoryID = @CategoryID " +
+                    "WHERE ID = @ID AND CategoryID = @CategoryID",
+                    prepareItemParameters(prItem));
+                    if (lcRecCount == 1)
+                        return "One item updated";
+                    else return "Unexpected item update count: " + lcRecCount;
+                }
+                else
+                {
+                    throw new Exception("DateModifiedMismatch");
+                }
+
             }
             catch (Exception ex)
             {
@@ -156,8 +95,8 @@ namespace PCShopSelfHost
             try
             {
                 int lcRecCount = clsDbConnection.Execute("INSERT INTO Item "
-                    + "(Model, Description, OperatingSystem, Price,QtyInStock, LastModified, NewOrUsed, Condition, ManufactureDate, ImportCountry, CategoryName) "
-                    + "VALUES (@Model, @Description, @OperatingSystem, @Price,QtyInStock, @LastModified, @NewOrUsed, @Condition, @ManufactureDate, @ImportCountry, @CategoryName)"
+                    + "(Model, Description, OperatingSystem, Price, QtyInStock, LastModified, NewOrUsed, Condition, ManufactureDate, ImportCountry, CategoryID) "
+                    + "VALUES (@Model, @Description, @OperatingSystem, @Price, @QtyInStock, @LastModified, @NewOrUsed, @Condition, @ManufactureDate, @ImportCountry, @CategoryID)"
                     , prepareItemParameters(prItem));
                 if (lcRecCount == 1)
                     return "One item inserted";
@@ -169,6 +108,179 @@ namespace PCShopSelfHost
             }
         }
 
+        //CATEGORY ITEMS
+        private List<clsAllItem> getCategoryItems(int ID) // Get all items related to the category ID passed in
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(1);
+            par.Add("ID", ID);
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Item WHERE CategoryID = @ID", par);
+            List<clsAllItem> lcItems = new List<clsAllItem>();
+            foreach (DataRow dr in lcResult.Rows) lcItems.Add(dataRow2AllItem(dr));
+            return lcItems;
+        }
+
+        //ITEM
+        public clsAllItem GetItem(int ID)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(1);
+            par.Add("ID", ID);
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Item WHERE ID = @ID", par);
+            clsAllItem lcItems = new clsAllItem();
+            if (lcResult.Rows.Count > 0)
+            {
+                DataRow dr = lcResult.Rows[0];
+                return dataRow2AllItem(dr);
+            }
+            else
+                return null;
+        }
+
+
+        // ####################################################################################
+        // #################################     ORDER     ####################################
+        // ####################################################################################
+        public List<clsOrder> GetOrderList()
+        {
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM [Order]", null);
+            List<clsOrder> lcOrderList = new List<clsOrder>();
+            foreach (DataRow dr in lcResult.Rows)
+            {
+                clsOrder lcOrder = dataRow2Order(dr);
+                lcOrder.OrderItem = GetItem(lcOrder.ItemID);
+                lcOrderList.Add(lcOrder);
+            }
+                
+            return lcOrderList;
+        }
+        public clsOrder GetOrder(int OrderNo)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(1);
+            par.Add("OrderNo", OrderNo);
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM [Order] WHERE OrderNo = @OrderNo", par);
+            if (lcResult.Rows.Count > 0)
+            {
+                DataRow dr = lcResult.Rows[0];
+                clsOrder lcOrder = dataRow2Order(dr);
+                lcOrder.OrderItem = GetItem(lcOrder.ItemID);
+                return lcOrder;
+            }
+            else
+                return null;
+        }
+
+
+        public string DeleteOrder(clsOrder prOrder)
+        { // delete
+            try
+            {
+                int lcRecCount = clsDbConnection.Execute(
+                "DELETE FROM [Order] " +
+                "WHERE OrderNo = @OrderNo",
+                prepareOrderParameters(prOrder));
+                if (lcRecCount == 1)
+                    return "One order deleted";
+                else return "Unexpected order delete count: " + lcRecCount;
+            }
+            catch (Exception ex)
+            {
+                return ex.GetBaseException().Message;
+            }
+        }
+
+        public string PostOrder(clsOrder prOrder)
+        { // insert 
+            try
+            {
+                int lcRecCount = clsDbConnection.Execute("INSERT INTO [Order] "
+                    + "(Qnty, PricePerItem, CustName, CustPh, TimeOrdered, ItemID) "
+                    + "VALUES (@Qnty, @PricePerItem, @CustName, @CustPh, @TimeOrdered, @ItemID)"
+                    , prepareOrderParameters(prOrder));
+                if (lcRecCount == 1)
+                    return "One order inserted";
+                else return "Unexpected order insert count: " + lcRecCount;
+            }
+            catch (Exception ex)
+            {
+                return ex.GetBaseException().Message;
+            }
+        }     
+
+
+
+
+
+
+
+
+
+
+        // ####################################################################################
+        // #########################    CONVERT DATAROW TO OBJECT    ##########################
+        // ####################################################################################
+        private clsAllItem dataRow2AllItem(DataRow prDataRow)
+        {
+            return new clsAllItem()
+            {
+                ID = Convert.ToInt32(prDataRow["ID"]),
+                Model = Convert.ToString(prDataRow["Model"]),
+                Description = Convert.ToString(prDataRow["Description"]),
+                OperatingSystem = Convert.ToString(prDataRow["OperatingSystem"]),
+                Price = Convert.ToDecimal(prDataRow["Price"]),
+                QtyInStock = Convert.ToInt32(prDataRow["QtyInStock"]),
+                LastModified = Convert.ToDateTime(prDataRow["LastModified"]),
+                NewOrUsed = Convert.ToChar(prDataRow["NewOrUsed"]),
+                Condition = Convert.ToString(prDataRow["Condition"]),
+                ManufactureDate = Convert.ToDateTime(prDataRow["ManufactureDate"]),
+                ImportCountry = Convert.ToString(prDataRow["ImportCountry"]),
+                CategoryID = Convert.ToInt32(prDataRow["CategoryID"])
+            };
+        }
+        private clsCategory dataRow2Category(DataRow prDataRow)
+        {
+            return new clsCategory()
+            {
+                ID = Convert.ToInt32(prDataRow["ID"]),
+                Name = Convert.ToString(prDataRow["Name"]),
+                Description = Convert.ToString(prDataRow["Description"]),
+            };
+        }
+        private clsOrder dataRow2Order(DataRow prDataRow)
+        {
+            return new clsOrder()
+            {
+                OrderNo = Convert.ToInt32(prDataRow["OrderNo"]),
+                Qnty = Convert.ToInt32(prDataRow["Qnty"]),
+                PricePerItem = Convert.ToDecimal(prDataRow["PricePerItem"]),
+                CustName = Convert.ToString(prDataRow["CustName"]),
+                CustPh = Convert.ToString(prDataRow["CustPh"]),
+                TimeOrdered = Convert.ToDateTime(prDataRow["TimeOrdered"]),
+                ItemID = Convert.ToInt32(prDataRow["ItemID"])
+            };
+        }
+
+
+
+        // ####################################################################################
+        // #############################    PREPARE PARAMETERS    #############################
+        // ####################################################################################
+        /// <summary>
+        /// Prepares the Order parameters for database operations
+        /// </summary>
+        /// <param name="prOrder"></param>
+        /// <returns></returns>
+        private Dictionary<string, object> prepareOrderParameters(clsOrder prOrder)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(7);
+            par.Add("OrderNo", prOrder.OrderNo);
+            par.Add("Qnty", prOrder.Qnty);
+            par.Add("PricePerItem", prOrder.PricePerItem);
+            par.Add("CustName", prOrder.CustName);
+            par.Add("CustPh", prOrder.CustPh);
+            par.Add("TimeOrdered", prOrder.TimeOrdered);
+            par.Add("ItemID", prOrder.ItemID);
+            return par;
+        }
+
         /// <summary>
         /// Prepares the item parameters for database operations
         /// </summary>
@@ -176,7 +288,8 @@ namespace PCShopSelfHost
         /// <returns></returns>
         private Dictionary<string, object> prepareItemParameters(clsAllItem prItem)
         {
-            Dictionary<string, object> par = new Dictionary<string, object>(11);
+            Dictionary<string, object> par = new Dictionary<string, object>(12);
+            par.Add("ID", prItem.ID);
             par.Add("Model", prItem.Model);
             par.Add("Description", prItem.Description);
             par.Add("OperatingSystem", prItem.OperatingSystem);
@@ -187,8 +300,9 @@ namespace PCShopSelfHost
             par.Add("Condition", prItem.Condition);
             par.Add("ManufactureDate", prItem.ManufactureDate);
             par.Add("ImportCountry", prItem.ImportCountry);
-            par.Add("CategoryName", prItem.CategoryName);
+            par.Add("CategoryID", prItem.CategoryID);
             return par;
         }
+
     }
 }

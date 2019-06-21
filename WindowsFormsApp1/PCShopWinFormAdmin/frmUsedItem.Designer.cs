@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtCondition = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpDateOfManufacture = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
-            // textBox2
+            // txtCondition
             // 
-            this.textBox2.Location = new System.Drawing.Point(122, 293);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(268, 20);
-            this.textBox2.TabIndex = 83;
+            this.txtCondition.Location = new System.Drawing.Point(122, 293);
+            this.txtCondition.Name = "txtCondition";
+            this.txtCondition.Size = new System.Drawing.Size(268, 20);
+            this.txtCondition.TabIndex = 83;
             // 
             // label10
             // 
@@ -59,27 +59,27 @@
             this.label11.TabIndex = 81;
             this.label11.Text = "Date of Manufacture:";
             // 
-            // dateTimePicker2
+            // dtpDateOfManufacture
             // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(122, 267);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(96, 20);
-            this.dateTimePicker2.TabIndex = 80;
+            this.dtpDateOfManufacture.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateOfManufacture.Location = new System.Drawing.Point(122, 267);
+            this.dtpDateOfManufacture.Name = "dtpDateOfManufacture";
+            this.dtpDateOfManufacture.Size = new System.Drawing.Size(96, 20);
+            this.dtpDateOfManufacture.TabIndex = 80;
             // 
             // frmUsedItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(411, 363);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtCondition);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dtpDateOfManufacture);
             this.Name = "frmUsedItem";
-            this.Controls.SetChildIndex(this.dateTimePicker2, 0);
+            this.Controls.SetChildIndex(this.dtpDateOfManufacture, 0);
             this.Controls.SetChildIndex(this.label11, 0);
             this.Controls.SetChildIndex(this.label10, 0);
-            this.Controls.SetChildIndex(this.textBox2, 0);
+            this.Controls.SetChildIndex(this.txtCondition, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,9 +87,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtCondition;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dtpDateOfManufacture;
     }
 }

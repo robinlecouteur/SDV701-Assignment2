@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtItemModel = new System.Windows.Forms.TextBox();
+            this.txtTotalOrderPrice = new System.Windows.Forms.TextBox();
+            this.txtPricePerItem = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -39,42 +39,42 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.txtCustName = new System.Windows.Forms.TextBox();
+            this.txtCustPh = new System.Windows.Forms.TextBox();
+            this.txtQnty = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txtItemDesc = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.txtItemNewOrUsed = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txtTimeOrdered = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // textBox3
+            // txtItemModel
             // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox3.Location = new System.Drawing.Point(111, 141);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(212, 20);
-            this.textBox3.TabIndex = 29;
+            this.txtItemModel.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtItemModel.Location = new System.Drawing.Point(111, 141);
+            this.txtItemModel.Name = "txtItemModel";
+            this.txtItemModel.Size = new System.Drawing.Size(212, 20);
+            this.txtItemModel.TabIndex = 29;
             // 
-            // textBox2
+            // txtTotalOrderPrice
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox2.Location = new System.Drawing.Point(113, 382);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(134, 20);
-            this.textBox2.TabIndex = 28;
+            this.txtTotalOrderPrice.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtTotalOrderPrice.Location = new System.Drawing.Point(113, 382);
+            this.txtTotalOrderPrice.Name = "txtTotalOrderPrice";
+            this.txtTotalOrderPrice.Size = new System.Drawing.Size(134, 20);
+            this.txtTotalOrderPrice.TabIndex = 28;
             // 
-            // textBox1
+            // txtPricePerItem
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox1.Location = new System.Drawing.Point(113, 304);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(94, 20);
-            this.textBox1.TabIndex = 27;
+            this.txtPricePerItem.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtPricePerItem.Location = new System.Drawing.Point(113, 304);
+            this.txtPricePerItem.Name = "txtPricePerItem";
+            this.txtPricePerItem.Size = new System.Drawing.Size(94, 20);
+            this.txtPricePerItem.TabIndex = 27;
             // 
             // label8
             // 
@@ -150,38 +150,39 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Customer Details";
             // 
-            // button2
+            // btnClose
             // 
-            this.button2.Location = new System.Drawing.Point(12, 418);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 32);
-            this.button2.TabIndex = 33;
-            this.button2.Text = "Close";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnClose.Location = new System.Drawing.Point(12, 418);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(81, 32);
+            this.btnClose.TabIndex = 33;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // textBox5
+            // txtCustName
             // 
-            this.textBox5.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox5.Location = new System.Drawing.Point(111, 38);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(212, 20);
-            this.textBox5.TabIndex = 34;
+            this.txtCustName.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtCustName.Location = new System.Drawing.Point(111, 38);
+            this.txtCustName.Name = "txtCustName";
+            this.txtCustName.Size = new System.Drawing.Size(212, 20);
+            this.txtCustName.TabIndex = 34;
             // 
-            // textBox6
+            // txtCustPh
             // 
-            this.textBox6.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox6.Location = new System.Drawing.Point(111, 64);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(212, 20);
-            this.textBox6.TabIndex = 35;
+            this.txtCustPh.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtCustPh.Location = new System.Drawing.Point(111, 64);
+            this.txtCustPh.Name = "txtCustPh";
+            this.txtCustPh.Size = new System.Drawing.Size(212, 20);
+            this.txtCustPh.TabIndex = 35;
             // 
-            // textBox4
+            // txtQnty
             // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox4.Location = new System.Drawing.Point(113, 330);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(134, 20);
-            this.textBox4.TabIndex = 36;
+            this.txtQnty.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtQnty.Location = new System.Drawing.Point(113, 330);
+            this.txtQnty.Name = "txtQnty";
+            this.txtQnty.Size = new System.Drawing.Size(134, 20);
+            this.txtQnty.TabIndex = 36;
             // 
             // label9
             // 
@@ -202,14 +203,14 @@
             this.label10.TabIndex = 38;
             this.label10.Text = "Time Ordered:";
             // 
-            // textBox8
+            // txtItemDesc
             // 
-            this.textBox8.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox8.Location = new System.Drawing.Point(111, 167);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(277, 48);
-            this.textBox8.TabIndex = 40;
+            this.txtItemDesc.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtItemDesc.Location = new System.Drawing.Point(111, 167);
+            this.txtItemDesc.Multiline = true;
+            this.txtItemDesc.Name = "txtItemDesc";
+            this.txtItemDesc.Size = new System.Drawing.Size(277, 48);
+            this.txtItemDesc.TabIndex = 40;
             // 
             // label11
             // 
@@ -220,13 +221,13 @@
             this.label11.TabIndex = 41;
             this.label11.Text = "Item Description:";
             // 
-            // textBox9
+            // txtItemNewOrUsed
             // 
-            this.textBox9.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox9.Location = new System.Drawing.Point(111, 221);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(54, 20);
-            this.textBox9.TabIndex = 43;
+            this.txtItemNewOrUsed.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtItemNewOrUsed.Location = new System.Drawing.Point(111, 221);
+            this.txtItemNewOrUsed.Name = "txtItemNewOrUsed";
+            this.txtItemNewOrUsed.Size = new System.Drawing.Size(54, 20);
+            this.txtItemNewOrUsed.TabIndex = 43;
             // 
             // label12
             // 
@@ -237,34 +238,34 @@
             this.label12.TabIndex = 42;
             this.label12.Text = "New or Used:";
             // 
-            // textBox7
+            // txtTimeOrdered
             // 
-            this.textBox7.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox7.Location = new System.Drawing.Point(113, 356);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(134, 20);
-            this.textBox7.TabIndex = 39;
-            this.textBox7.Text = "9/05/2019 1:39 PM";
+            this.txtTimeOrdered.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtTimeOrdered.Location = new System.Drawing.Point(113, 356);
+            this.txtTimeOrdered.Name = "txtTimeOrdered";
+            this.txtTimeOrdered.Size = new System.Drawing.Size(134, 20);
+            this.txtTimeOrdered.TabIndex = 39;
+            this.txtTimeOrdered.Text = "9/05/2019 1:39 PM";
             // 
             // frmOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 462);
-            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.txtItemNewOrUsed);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.txtItemDesc);
+            this.Controls.Add(this.txtTimeOrdered);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtQnty);
+            this.Controls.Add(this.txtCustPh);
+            this.Controls.Add(this.txtCustName);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.txtItemModel);
+            this.Controls.Add(this.txtTotalOrderPrice);
+            this.Controls.Add(this.txtPricePerItem);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -275,6 +276,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmOrder";
             this.Text = "frmOrder";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmOrder_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,9 +284,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtItemModel;
+        private System.Windows.Forms.TextBox txtTotalOrderPrice;
+        private System.Windows.Forms.TextBox txtPricePerItem;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -293,16 +295,16 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.TextBox txtCustName;
+        private System.Windows.Forms.TextBox txtCustPh;
+        private System.Windows.Forms.TextBox txtQnty;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox txtItemDesc;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox txtItemNewOrUsed;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox txtTimeOrdered;
     }
 }

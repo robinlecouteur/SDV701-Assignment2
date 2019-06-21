@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MQTTnet;
+using MQTTnet.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ namespace PCShopSelfHost
 {
     class Program
     {
-        static void Main(string[] args)
+        static async void Main(string[] args)
         {
             // Set up server configuration
             Uri _baseAddress = new Uri("http://localhost:60064/");
@@ -26,14 +28,28 @@ namespace PCShopSelfHost
 
             // Start listening
             server.OpenAsync().Wait();
+
+
+
+
+            //Start MQTT server
+            var optionsBuilder = new MqttServerOptionsBuilder()
+                .WithConnectionBacklog(100)
+                .WithDefaultEndpointPort(1884);
+
+            var mqttServer = new MqttFactory().CreateMqttServer();
+            await mqttServer.StartAsync(optionsBuilder.Build());
+            //------------------
+
+
+
             Console.WriteLine("PCShop Web-API Self hosted on " + _baseAddress +
                     _TextArt);
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
             server.CloseAsync().Wait();
+            await mqttServer.StopAsync();
         }
-
-
 
 
         private const string _TextArt = @"

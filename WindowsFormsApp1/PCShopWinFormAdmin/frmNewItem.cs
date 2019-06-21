@@ -10,9 +10,31 @@ namespace PCShopWinFormAdmin
 {
     public partial class frmNewItem : PCShopWinFormAdmin.frmItem
     {
-        public frmNewItem()
+        private frmNewItem()
         {
             InitializeComponent();
+        }
+
+
+        private static readonly frmNewItem _Instance = new frmNewItem();
+
+        public static frmNewItem Instance => _Instance;
+
+        protected override void updateForm()
+        {
+            base.updateForm();
+            txtImportCountry.Text = _Item.ImportCountry;
+        }
+
+        protected override void pushData()
+        {
+            base.pushData();
+            _Item.ImportCountry = txtImportCountry.Text;
+        }
+
+        public static void Run(clsAllItem prItem)
+        {
+            Instance.SetDetails(prItem);
         }
     }
 }
