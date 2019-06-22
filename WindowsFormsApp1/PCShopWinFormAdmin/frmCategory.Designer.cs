@@ -46,6 +46,7 @@
             this.txtCategoryName = new System.Windows.Forms.TextBox();
             this.cboItemType = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -199,6 +200,7 @@
             this.txtCategoryDesc.Location = new System.Drawing.Point(127, 59);
             this.txtCategoryDesc.Multiline = true;
             this.txtCategoryDesc.Name = "txtCategoryDesc";
+            this.txtCategoryDesc.ReadOnly = true;
             this.txtCategoryDesc.Size = new System.Drawing.Size(277, 41);
             this.txtCategoryDesc.TabIndex = 42;
             // 
@@ -207,6 +209,7 @@
             this.txtCategoryName.BackColor = System.Drawing.SystemColors.Menu;
             this.txtCategoryName.Location = new System.Drawing.Point(127, 33);
             this.txtCategoryName.Name = "txtCategoryName";
+            this.txtCategoryName.ReadOnly = true;
             this.txtCategoryName.Size = new System.Drawing.Size(212, 20);
             this.txtCategoryName.TabIndex = 41;
             // 
@@ -230,11 +233,22 @@
             this.panel1.Size = new System.Drawing.Size(244, 26);
             this.panel1.TabIndex = 44;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(679, 517);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(109, 36);
+            this.btnRefresh.TabIndex = 45;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // frmCategory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 619);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtCategoryDesc);
             this.Controls.Add(this.txtCategoryName);
@@ -276,5 +290,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmQtyInStock;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

@@ -48,13 +48,23 @@ namespace PCShopSelfHost
         { // delete
             try
             {
-                int lcRecCount = clsDbConnection.Execute(
-                "DELETE FROM Item " +
-                "WHERE ID = @ID AND CategoryID = @CategoryID",
-                prepareItemParameters(prItem));
-                if (lcRecCount == 1)
-                    return "One item deleted";
-                else return "Unexpected item delete count: " + lcRecCount;
+                DataTable lcOrders = clsDbConnection.GetDataTable("SELECT * FROM [Order] Where ItemID = @ID", prepareItemParameters(prItem));
+                if (lcOrders.Rows.Count == 0)
+                {
+                    int lcRecCount = clsDbConnection.Execute(
+                       "DELETE FROM Item " +
+                       "WHERE ID = @ID AND CategoryID = @CategoryID",
+                       prepareItemParameters(prItem));
+                    if (lcRecCount == 1)
+                    {
+                        clsMQTTClient.Instance.MqttPublish("DBChange");
+                        return "One item deleted";  
+                    }
+                    else return "Unexpected item delete count: " + lcRecCount;
+                }
+                else
+                    return "Cannot delete item while it has active orders. Remove all orders for this item before attempting to delete it";
+               
             }
             catch (Exception ex)
             {
@@ -76,7 +86,10 @@ namespace PCShopSelfHost
                     "WHERE ID = @ID AND CategoryID = @CategoryID",
                     prepareItemParameters(prItem));
                     if (lcRecCount == 1)
+                    {
+                        clsMQTTClient.Instance.MqttPublish("DBChange");
                         return "One item updated";
+                    }
                     else return "Unexpected item update count: " + lcRecCount;
                 }
                 else
@@ -99,7 +112,10 @@ namespace PCShopSelfHost
                     + "VALUES (@Model, @Description, @OperatingSystem, @Price, @QtyInStock, @LastModified, @NewOrUsed, @Condition, @ManufactureDate, @ImportCountry, @CategoryID)"
                     , prepareItemParameters(prItem));
                 if (lcRecCount == 1)
+                {
+                    clsMQTTClient.Instance.MqttPublish("DBChange");
                     return "One item inserted";
+                }
                 else return "Unexpected item insert count: " + lcRecCount;
             }
             catch (Exception ex)
@@ -178,7 +194,10 @@ namespace PCShopSelfHost
                 "WHERE OrderNo = @OrderNo",
                 prepareOrderParameters(prOrder));
                 if (lcRecCount == 1)
+                {
+                    clsMQTTClient.Instance.MqttPublish("DBChange");
                     return "One order deleted";
+                }
                 else return "Unexpected order delete count: " + lcRecCount;
             }
             catch (Exception ex)
@@ -187,8 +206,13 @@ namespace PCShopSelfHost
             }
         }
 
+        /// <summary>
+        /// Inserts an order into the database
+        /// </summary>
+        /// <param name="prOrder"></param>
+        /// <returns></returns>
         public string PostOrder(clsOrder prOrder)
-        { // insert 
+        { 
             try
             {
                 int lcRecCount = clsDbConnection.Execute("INSERT INTO [Order] "
@@ -196,7 +220,10 @@ namespace PCShopSelfHost
                     + "VALUES (@Qnty, @PricePerItem, @CustName, @CustPh, @TimeOrdered, @ItemID)"
                     , prepareOrderParameters(prOrder));
                 if (lcRecCount == 1)
+                {
+                    clsMQTTClient.Instance.MqttPublish("DBChange");
                     return "One order inserted";
+                }
                 else return "Unexpected order insert count: " + lcRecCount;
             }
             catch (Exception ex)

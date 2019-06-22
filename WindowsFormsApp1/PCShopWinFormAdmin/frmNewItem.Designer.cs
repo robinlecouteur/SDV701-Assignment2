@@ -35,8 +35,9 @@
             // txtImportCountry
             // 
             this.txtImportCountry.Location = new System.Drawing.Point(122, 264);
+            this.txtImportCountry.MaxLength = 20;
             this.txtImportCountry.Name = "txtImportCountry";
-            this.txtImportCountry.Size = new System.Drawing.Size(120, 20);
+            this.txtImportCountry.Size = new System.Drawing.Size(212, 20);
             this.txtImportCountry.TabIndex = 76;
             // 
             // label6

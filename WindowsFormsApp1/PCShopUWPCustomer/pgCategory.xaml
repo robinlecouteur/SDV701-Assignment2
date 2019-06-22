@@ -34,6 +34,7 @@
         <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Height="34" Margin="31,586,0,0" VerticalAlignment="Top" Width="121" Click="btnBack_Click"/>
         <TextBlock x:Name="txtName" HorizontalAlignment="Left" Margin="201,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="16" FontWeight="Normal" Height="23" Text="Label"/>
         <TextBlock x:Name="txtDescription" HorizontalAlignment="Left" Margin="201,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="16" FontWeight="Normal" Height="56" Text="Label" Width="329"/>
+        <Button x:Name="btnRefresh" Content="Refresh Page" HorizontalAlignment="Left" Height="34" Margin="771,260,0,0" VerticalAlignment="Top" Width="121" Click="btnRefresh_Click" />
 
     </Grid>
 </Page>

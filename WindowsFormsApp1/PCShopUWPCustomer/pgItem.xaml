@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="134,39,0,0" Text="Category Details" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="134,39,0,0" Text="Item Details" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="24" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="99,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Item ID:"/>
         <TextBlock HorizontalAlignment="Left" Margin="65,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Item Model:"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="18" FontWeight="Normal" Text="Item Description:"/>
@@ -28,5 +28,6 @@
         <Button x:Name="btnOrderItem" Content="Order Item" HorizontalAlignment="Left" Margin="889,588,0,0" VerticalAlignment="Top" Width="111" Click="btnOrderItem_Click"/>
         <TextBlock x:Name="txbPageTitle" HorizontalAlignment="Left" Margin="9,2,0,0" Text="Category Details" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" FontSize="20" FontWeight="Bold"/>
         <ContentControl x:Name="ctcItemSpecs" Content="ContentControl" HorizontalAlignment="Left" Margin="10,406,0,0" VerticalAlignment="Top" Height="153" Width="636"/>
+        <Button x:Name="btnRefresh" Content="Refresh Page" HorizontalAlignment="Left" Margin="889,533,0,0" VerticalAlignment="Top" Width="111" Click="btnRefresh_Click"/>
     </Grid>
 </Page>

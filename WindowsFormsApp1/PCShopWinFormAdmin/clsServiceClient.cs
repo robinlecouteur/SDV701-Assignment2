@@ -56,7 +56,13 @@ namespace PCShopWinFormAdmin
 
 
 
-
+        internal async static Task<clsAllItem> GetItemAsync(int prItemID)
+        {
+            using (HttpClient lcHttpClient = new HttpClient())
+                return JsonConvert.DeserializeObject<clsAllItem>
+                    (await lcHttpClient.GetStringAsync
+                    ("http://localhost:60064/api/clspcshop/GetItem?ID=" + prItemID));
+        }
         internal async static Task<string> InsertItemAsync(clsAllItem prItem)
         {
             return await InsertOrUpdateAsync(prItem, "http://localhost:60064/api/clspcshop/PostItem", "POST");

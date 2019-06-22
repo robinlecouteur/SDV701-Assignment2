@@ -1,18 +1,13 @@
-﻿using MQTTnet;
-using MQTTnet.Server;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
+
 
 namespace PCShopSelfHost
 {
     class Program
     {
-        static async void Main(string[] args)
+        static void Main(string[] args)
         {
             // Set up server configuration
             Uri _baseAddress = new Uri("http://localhost:60064/");
@@ -28,19 +23,12 @@ namespace PCShopSelfHost
 
             // Start listening
             server.OpenAsync().Wait();
+            clsMQTTClient.Instance.ConnectMqttClient();
 
 
 
 
-            //Start MQTT server
-            var optionsBuilder = new MqttServerOptionsBuilder()
-                .WithConnectionBacklog(100)
-                .WithDefaultEndpointPort(1884);
-
-            var mqttServer = new MqttFactory().CreateMqttServer();
-            await mqttServer.StartAsync(optionsBuilder.Build());
-            //------------------
-
+            
 
 
             Console.WriteLine("PCShop Web-API Self hosted on " + _baseAddress +
@@ -48,10 +36,11 @@ namespace PCShopSelfHost
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
             server.CloseAsync().Wait();
-            await mqttServer.StopAsync();
+            clsMQTTClient.Instance.DisconnectMqttClient();
+            //await mqttServer.StopAsync();
         }
 
-
+//TextArt
         private const string _TextArt = @"
               ____,----.___
         __.--'...........::\_
@@ -96,6 +85,11 @@ namespace PCShopSelfHost
                    | ___ |%    |          |      `--' %%\
                     \__    __, --'   |%%  |%%      %% |    %%        |
                      / `--'         |    |%%%     %%%|  %%%%   %%%  |
-                 "; 
+                 ";
+
+
     }
+
+
+
 }

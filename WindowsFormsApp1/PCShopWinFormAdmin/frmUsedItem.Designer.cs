@@ -37,6 +37,7 @@
             // txtCondition
             // 
             this.txtCondition.Location = new System.Drawing.Point(122, 293);
+            this.txtCondition.MaxLength = 40;
             this.txtCondition.Name = "txtCondition";
             this.txtCondition.Size = new System.Drawing.Size(268, 20);
             this.txtCondition.TabIndex = 83;
@@ -63,9 +64,12 @@
             // 
             this.dtpDateOfManufacture.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDateOfManufacture.Location = new System.Drawing.Point(122, 267);
+            this.dtpDateOfManufacture.MaxDate = new System.DateTime(2019, 6, 21, 0, 0, 0, 0);
+            this.dtpDateOfManufacture.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
             this.dtpDateOfManufacture.Name = "dtpDateOfManufacture";
             this.dtpDateOfManufacture.Size = new System.Drawing.Size(96, 20);
             this.dtpDateOfManufacture.TabIndex = 80;
+            this.dtpDateOfManufacture.Value = new System.DateTime(2019, 6, 21, 0, 0, 0, 0);
             // 
             // frmUsedItem
             // 

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PCShopWinFormAdmin
 {
-    public partial class frmItem : Form
+    public partial class frmItem : Form, IObserver
     {
 
         protected clsAllItem _Item;
@@ -24,15 +24,33 @@ namespace PCShopWinFormAdmin
 
         public void SetDetails(clsAllItem prItem)
         {
+            clsMQTTClient.Instance.Subscribe(this);
             _Item = prItem;
             updateForm();
             ShowDialog();
+            
         }
 
 
         public virtual bool isValid()
         {
-            return true;
+            bool lcIsValid = true;
+            foreach (TextBox lcTextBox in this.Controls.OfType<TextBox>())
+            {
+                if (String.IsNullOrWhiteSpace(lcTextBox.Text))
+                {
+                    lcIsValid = false;
+                    break;
+                }
+            }
+            foreach (NumericUpDown lcNumericUpDown in this.Controls.OfType<NumericUpDown>())
+            if (lcNumericUpDown.Text == "")
+            {
+                {
+                    lcIsValid = false;
+                }
+            }
+            return lcIsValid;
         }
 
         protected virtual void updateForm()
@@ -41,7 +59,7 @@ namespace PCShopWinFormAdmin
             txtModel.Text = _Item.Model;
             txtDescription.Text = _Item.Description;
             txtOS.Text = _Item.OperatingSystem;
-            txtPricePerItem.Text = _Item.Price.ToString();
+            nudPricePerItem.Value = _Item.Price;
             nudQtyInStock.Value = _Item.QtyInStock;
             txtNewOrUsed.Text = _Item.NewOrUsed.ToString();
 
@@ -53,7 +71,7 @@ namespace PCShopWinFormAdmin
             _Item.Model = txtModel.Text;
             _Item.Description = txtDescription.Text;
             _Item.OperatingSystem = txtOS.Text;
-            _Item.Price = decimal.Parse(txtPricePerItem.Text);
+            _Item.Price = nudPricePerItem.Value;
             _Item.QtyInStock = Convert.ToInt32(nudQtyInStock.Value);
             _Item.NewOrUsed = char.Parse(txtNewOrUsed.Text);
         }
@@ -72,7 +90,7 @@ namespace PCShopWinFormAdmin
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-
+            clsMQTTClient.Instance.Unsubscribe(this);
             Hide();
         }
 
@@ -80,6 +98,7 @@ namespace PCShopWinFormAdmin
         {
             if (isValid())
             {
+                clsMQTTClient.Instance.Unsubscribe(this);
                 DialogResult = DialogResult.OK;
                 pushData();
                 if (txtModel.Enabled)
@@ -88,6 +107,51 @@ namespace PCShopWinFormAdmin
                     MessageBox.Show(await ServiceClient.UpdateItemAsync(_Item));
                 Hide();
             }
+            else
+            {
+                MessageBox.Show("Invalid Input! Make sure all fields are filled in");
+            }
+        }
+
+        private void frmItem_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                e.Cancel = true;
+                clsMQTTClient.Instance.Unsubscribe(this);
+                Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void RefreshFormFromDB(int lcItemID)
+        {
+            _Item = await ServiceClient.GetItemAsync(lcItemID);
+            updateForm();
+        }
+
+
+
+
+        private void mqttUpdateGUI()
+        {
+            RefreshFormFromDB(_Item.ID);
+        }
+        public void MqttUpdate(string lcMessage)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(mqttUpdateGUI));
+            }
+            else
+            {
+                // Do Something
+                mqttUpdateGUI();
+            }
+
         }
     }
 }

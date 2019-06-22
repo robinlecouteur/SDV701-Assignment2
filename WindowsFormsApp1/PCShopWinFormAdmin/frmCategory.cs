@@ -10,8 +10,17 @@ using System.Windows.Forms;
 
 namespace PCShopWinFormAdmin
 {
-    public partial class frmCategory : Form
+    /// <summary>
+    /// Author: Robin Le Couteur
+    /// Date: 21/06/2019
+    /// 
+    /// This form shows a category and a summary of all items related to it. 
+    /// You can add, edit, and delete items in this form.
+    /// </summary>
+    public partial class frmCategory : Form, IObserver
     {
+
+
         public frmCategory()
         {
             InitializeComponent();
@@ -22,9 +31,9 @@ namespace PCShopWinFormAdmin
         private clsCategory _Category;
         private static Dictionary<int, frmCategory> _CategoryFormList = new Dictionary<int, frmCategory>();
 
-
         public static void Run(int prCategoryID)
         {
+            
             frmCategory lcCategoryForm;
             if (!_CategoryFormList.TryGetValue(prCategoryID, out lcCategoryForm))
             {
@@ -32,10 +41,12 @@ namespace PCShopWinFormAdmin
                 _CategoryFormList.Add(prCategoryID, lcCategoryForm);
 
                 lcCategoryForm.refreshFormFromDB(prCategoryID);
+                clsMQTTClient.Instance.Subscribe(lcCategoryForm);
                 lcCategoryForm.Show();
             }
             else
             {
+                clsMQTTClient.Instance.Subscribe(lcCategoryForm);
                 lcCategoryForm.Show();
                 lcCategoryForm.Activate();
             }
@@ -55,13 +66,12 @@ namespace PCShopWinFormAdmin
             grdItems.DataSource = null;
             if (_Category.ItemsList != null)
                 grdItems.DataSource = _Category.ItemsList;
-            frmMain.Instance.UpdateDisplay();
         }
 
         public void SetDetails(clsCategory prCategory)
         {
             _Category = prCategory;
-            updateDisplay(); 
+            updateDisplay();
         }
 
         private char getReply()
@@ -77,19 +87,45 @@ namespace PCShopWinFormAdmin
         //Edit Item -----------------------------------------------------------------------------\
         private void lstWorks_DoubleClick(object sender, EventArgs e)
         {
-            frmItem.DispatchItemForm(grdItems.SelectedRows[0].DataBoundItem as clsAllItem);
+            editItem();
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            frmItem.DispatchItemForm(grdItems.SelectedRows[0].DataBoundItem as clsAllItem);
+            editItem();
+        }
+
+        private async void editItem()
+        {
+            try
+            {
+                if (grdItems.SelectedRows.Count == 0)
+                {
+                    throw new Exception("No Item Selected");
+                }
+                else
+                {
+                    DataGridViewRow row = this.grdItems.SelectedRows[0];
+                    clsAllItem lcItem = row.DataBoundItem as clsAllItem;
+
+                    if (lcItem != null)
+                    {
+                        frmItem.DispatchItemForm(lcItem);
+                        SetDetails(await ServiceClient.GetCategoryAsync(_Category.ID));
+                    }
+                    else
+                    {
+                        throw new Exception("Error! Null Item");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         // --------------------------------------------------------------------------------------/
 
-        private void rbByDate_CheckedChanged(object sender, EventArgs e)
-        {
-            //_WorksList.SortOrder = Convert.ToByte(rbByDate.Checked);
-            //updateDisplay();
-        }
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
@@ -97,7 +133,7 @@ namespace PCShopWinFormAdmin
             {
                 char lcReply = getReply();
                 clsAllItem lcItem = clsAllItem.NewItem(lcReply);
-                if (lcItem != null) 
+                if (lcItem != null)
                 {
                     lcItem.CategoryID = _Category.ID;
                     frmItem.DispatchItemForm(lcItem);
@@ -107,9 +143,9 @@ namespace PCShopWinFormAdmin
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -117,6 +153,7 @@ namespace PCShopWinFormAdmin
         {
             try
             {
+                clsMQTTClient.Instance.Unsubscribe(this);
                 Hide();
             }
             catch (Exception ex)
@@ -129,6 +166,7 @@ namespace PCShopWinFormAdmin
         {
             try
             {
+                clsMQTTClient.Instance.Unsubscribe(this);
                 e.Cancel = true;
                 Hide();
             }
@@ -138,20 +176,59 @@ namespace PCShopWinFormAdmin
             }
         }
 
+        /// <summary>
+        /// Deletes an item out of the database and refreshes the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnDelete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(await ServiceClient.DeleteItemAsync(grdItems.SelectedRows[0].DataBoundItem as clsAllItem));
+
+            try
+            {
+                if (grdItems.SelectedRows.Count == 0)
+                {
+                    throw new Exception("No Item Selected");
+                }
+                else
+                {
+                    if (MessageBox.Show("Are you sure you want to do this?", "Warning!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        MessageBox.Show(await ServiceClient.DeleteItemAsync(grdItems.SelectedRows[0].DataBoundItem as clsAllItem));
+                        refreshFormFromDB(_Category.ID);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
             refreshFormFromDB(_Category.ID);
-            frmMain.Instance.UpdateDisplay();
         }
 
 
 
-        //private void updateTitle(string prGalleryName)
-        //{
-        //    if (!string.IsNullOrEmpty(prGalleryName))
 
-        //        Text = "ArtistDetails - " + prGalleryName;
-        //}
+        private void mqttUpdateGUI()
+        {
+            refreshFormFromDB(_Category.ID);
+        }
+        public void MqttUpdate(string lcMessage)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(mqttUpdateGUI));
+            }
+            else
+            {
+                // Do Something
+                mqttUpdateGUI();
+            }
+
+        }
     }
 }

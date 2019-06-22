@@ -35,7 +35,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtPricePerItem = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
@@ -45,7 +44,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.nudQtyInStock = new System.Windows.Forms.NumericUpDown();
             this.txtNewOrUsed = new System.Windows.Forms.TextBox();
+            this.nudPricePerItem = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nudQtyInStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPricePerItem)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
@@ -60,6 +61,7 @@
             // txtDescription
             // 
             this.txtDescription.Location = new System.Drawing.Point(122, 83);
+            this.txtDescription.MaxLength = 150;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(277, 48);
@@ -78,6 +80,7 @@
             // txtModel
             // 
             this.txtModel.Location = new System.Drawing.Point(122, 57);
+            this.txtModel.MaxLength = 20;
             this.txtModel.Name = "txtModel";
             this.txtModel.Size = new System.Drawing.Size(212, 20);
             this.txtModel.TabIndex = 54;
@@ -110,13 +113,6 @@
             this.label7.TabIndex = 50;
             this.label7.Text = "Price per Item:";
             // 
-            // txtPricePerItem
-            // 
-            this.txtPricePerItem.Location = new System.Drawing.Point(122, 165);
-            this.txtPricePerItem.Name = "txtPricePerItem";
-            this.txtPricePerItem.Size = new System.Drawing.Size(77, 20);
-            this.txtPricePerItem.TabIndex = 52;
-            // 
             // txtID
             // 
             this.txtID.Location = new System.Drawing.Point(122, 31);
@@ -146,6 +142,7 @@
             // txtOS
             // 
             this.txtOS.Location = new System.Drawing.Point(122, 137);
+            this.txtOS.MaxLength = 20;
             this.txtOS.Name = "txtOS";
             this.txtOS.Size = new System.Drawing.Size(212, 20);
             this.txtOS.TabIndex = 71;
@@ -196,11 +193,25 @@
             this.txtNewOrUsed.Size = new System.Drawing.Size(77, 20);
             this.txtNewOrUsed.TabIndex = 75;
             // 
+            // nudPricePerItem
+            // 
+            this.nudPricePerItem.DecimalPlaces = 2;
+            this.nudPricePerItem.Location = new System.Drawing.Point(122, 166);
+            this.nudPricePerItem.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudPricePerItem.Name = "nudPricePerItem";
+            this.nudPricePerItem.Size = new System.Drawing.Size(77, 20);
+            this.nudPricePerItem.TabIndex = 76;
+            // 
             // frmItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(411, 367);
+            this.Controls.Add(this.nudPricePerItem);
             this.Controls.Add(this.txtNewOrUsed);
             this.Controls.Add(this.nudQtyInStock);
             this.Controls.Add(this.label9);
@@ -214,13 +225,14 @@
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtModel);
-            this.Controls.Add(this.txtPricePerItem);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Name = "frmItem";
             this.Text = "frmItem";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmItem_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nudQtyInStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPricePerItem)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -234,7 +246,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtPricePerItem;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOK;
@@ -244,5 +255,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown nudQtyInStock;
         private System.Windows.Forms.TextBox txtNewOrUsed;
+        private System.Windows.Forms.NumericUpDown nudPricePerItem;
     }
 }

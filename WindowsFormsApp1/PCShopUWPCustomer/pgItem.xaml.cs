@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -20,7 +21,7 @@ namespace PCShopUWPCustomer
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class pgItem : Page
+    public sealed partial class pgItem : Page, IObserver
     {
         public pgItem()
         {
@@ -39,7 +40,6 @@ namespace PCShopUWPCustomer
         }
         private void updatePage(clsAllItem prItem)
         {
-            _Item = prItem;
             txtID.Text = _Item.ID.ToString().EmptyIfNull();
             txtModel.Text = _Item.Model.EmptyIfNull();
             txtDescription.Text = _Item.Description.EmptyIfNull();
@@ -70,15 +70,70 @@ namespace PCShopUWPCustomer
             _ItemsContent[prItem.NewOrUsed].DynamicInvoke(prItem);
             updatePage(prItem);
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            dispatchItemContent(e.Parameter as clsAllItem);
+
+            _Item = e.Parameter as clsAllItem;
+            await updateScreen();
+            clsMQTTClient.Instance.Subscribe(this);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            clsMQTTClient.Instance.Unsubscribe(this);
+        }
+        private async System.Threading.Tasks.Task updateScreen()
+        {
+            _Item = await ServiceClient.GetItemAsync(_Item.ID);
+            if (_Item != null)
+            {
+                dispatchItemContent(_Item);
+            }
+            else
+            {
+                var messageDialog = new MessageDialog("Item no longer exists!");
+                messageDialog.Commands.Add(new UICommand(
+                    "OK",
+                    new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                messageDialog.DefaultCommandIndex = 1;
+                messageDialog.CancelCommandIndex = 1;
+                await messageDialog.ShowAsync();
+            }
+            
+        }
+
+        private void CommandInvokedHandler(IUICommand command)
+        {
+            Frame.GoBack();
         }
 
         private void btnOrderItem_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(pgOrder), _Item);
+        }
+
+        private async void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            await updateScreen();
+        }
+
+        private async void refreshFormFromDB()
+        {
+            await updateScreen();
+        }
+
+        private void mqttUpdateGUI()
+        {
+            refreshFormFromDB();
+        }
+        public async void MqttUpdate(string lcMessage)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            {
+                mqttUpdateGUI();
+            });
         }
     }
 }

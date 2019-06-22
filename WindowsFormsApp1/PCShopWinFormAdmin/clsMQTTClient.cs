@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using System.Windows.Forms;
 
-namespace PCShopUWPCustomer
+namespace PCShopWinFormAdmin
 {
+
     public interface ISubject
     {
         void Subscribe(IObserver observer);
@@ -21,7 +23,7 @@ namespace PCShopUWPCustomer
 
 
 
-    public class clsMQTTClient : ISubject
+    public class clsMQTTClient:ISubject
     {
 
         private List<IObserver> observers = new List<IObserver>();
@@ -47,7 +49,7 @@ namespace PCShopUWPCustomer
 
 
         private clsMQTTClient()
-        {
+        {         
         }
         public static readonly clsMQTTClient Instance = new clsMQTTClient();
 
@@ -70,7 +72,7 @@ namespace PCShopUWPCustomer
 
             ////------------------
             MqttSubscribe();
-            MqttPublish("A customer UWP form has started!");
+            MqttPublish("An admin panel has started!");
         }
         public void DisconnectMqttClient()
         {
@@ -98,7 +100,7 @@ namespace PCShopUWPCustomer
         {
             string ReceivedMessage = Encoding.UTF8.GetString(e.Message);
 
-
+            
             if (ReceivedMessage == "DBChange")
             {
                 Notify("Success!");
@@ -106,9 +108,9 @@ namespace PCShopUWPCustomer
 
             if (ReceivedMessage == "TestUpdate")
             {
-
+                
             }
-
+            
             // Dispatcher.Invoke(delegate {              // we need this construction because the receiving code in the library and the UI with textbox run on different threads
             //    txtReceived.Text = ReceivedMessage;
             // });

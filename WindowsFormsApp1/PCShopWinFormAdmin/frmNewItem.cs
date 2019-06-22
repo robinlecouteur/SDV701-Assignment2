@@ -23,7 +23,7 @@ namespace PCShopWinFormAdmin
         protected override void updateForm()
         {
             base.updateForm();
-            txtImportCountry.Text = _Item.ImportCountry;
+            txtImportCountry.Text = _Item.ImportCountry;   
         }
 
         protected override void pushData()

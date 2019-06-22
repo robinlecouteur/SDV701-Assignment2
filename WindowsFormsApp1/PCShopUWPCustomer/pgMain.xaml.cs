@@ -25,6 +25,7 @@ namespace PCShopUWPCustomer
         public pgMain()
         {
             this.InitializeComponent();
+            clsMQTTClient.Instance.ConnectMqttClient();
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

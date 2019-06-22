@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace PCShopWinFormAdmin
 {
-    public partial class frmOrder : Form
+    /// <summary>
+    /// Author: Robin Le Couteur
+    /// Date: 21/06/2019
+    /// 
+    /// This form displays the details of an order
+    /// </summary>
+    public partial class frmOrder : Form, IObserver
     {
         public frmOrder()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
         private clsOrder _Order;
         private static Dictionary<int, frmOrder> _OrderFormList = new Dictionary<int, frmOrder>();
@@ -29,10 +35,12 @@ namespace PCShopWinFormAdmin
                 _OrderFormList.Add(prOrderNo, lcOrderForm);
 
                 lcOrderForm.refreshFormFromDB(prOrderNo);
+                clsMQTTClient.Instance.Subscribe(lcOrderForm);
                 lcOrderForm.Show();
             }
             else
             {
+                clsMQTTClient.Instance.Subscribe(lcOrderForm);
                 lcOrderForm.Show();
                 lcOrderForm.Activate();
             }
@@ -68,6 +76,7 @@ namespace PCShopWinFormAdmin
         {
             try
             {
+                clsMQTTClient.Instance.Unsubscribe(this);
                 Hide();
             }
             catch (Exception ex)
@@ -80,6 +89,7 @@ namespace PCShopWinFormAdmin
         {
             try
             {
+                clsMQTTClient.Instance.Unsubscribe(this);
                 e.Cancel = true;
                 Hide();
             }
@@ -87,6 +97,32 @@ namespace PCShopWinFormAdmin
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+
+
+
+
+
+
+
+
+        private void mqttUpdateGUI()
+        {
+            refreshFormFromDB(_Order.OrderNo);
+        }
+        public void MqttUpdate(string lcMessage)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(mqttUpdateGUI));
+            }
+            else
+            {
+                // Do Something
+                mqttUpdateGUI();
+            }
+
         }
     }
 }

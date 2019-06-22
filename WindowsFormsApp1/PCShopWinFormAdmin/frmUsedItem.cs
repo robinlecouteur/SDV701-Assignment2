@@ -23,6 +23,7 @@ namespace PCShopWinFormAdmin
         protected override void updateForm()
         {
             base.updateForm();
+            dtpDateOfManufacture.MaxDate = DateTime.Now;
             dtpDateOfManufacture.Value = Convert.ToDateTime(_Item.ManufactureDate);
             txtCondition.Text = _Item.Condition;
         }

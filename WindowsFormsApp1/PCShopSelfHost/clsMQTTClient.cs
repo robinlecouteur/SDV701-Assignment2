@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace PCShopUWPCustomer
+namespace PCShopSelfHost
 {
     public interface ISubject
     {
@@ -70,7 +70,7 @@ namespace PCShopUWPCustomer
 
             ////------------------
             MqttSubscribe();
-            MqttPublish("A customer UWP form has started!");
+            MqttPublish("A selfhost server has started!");
         }
         public void DisconnectMqttClient()
         {

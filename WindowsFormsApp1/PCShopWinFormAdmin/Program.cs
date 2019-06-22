@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PCShopWinFormAdmin
@@ -16,6 +13,7 @@ namespace PCShopWinFormAdmin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            clsMQTTClient.Instance.ConnectMqttClient();
             Application.Run(frmMain.Instance);
         }
     }

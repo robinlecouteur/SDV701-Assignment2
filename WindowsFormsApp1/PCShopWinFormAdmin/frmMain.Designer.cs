@@ -35,6 +35,7 @@
             this.grdCategories = new System.Windows.Forms.DataGridView();
             this.CategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbOrders = new System.Windows.Forms.TabPage();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnExit2 = new System.Windows.Forms.Button();
             this.btnViewOrder = new System.Windows.Forms.Button();
@@ -84,6 +85,7 @@
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnViewCategory
             // 
@@ -129,6 +131,7 @@
             // 
             // tbOrders
             // 
+            this.tbOrders.Controls.Add(this.btnRefresh);
             this.tbOrders.Controls.Add(this.label3);
             this.tbOrders.Controls.Add(this.btnExit2);
             this.tbOrders.Controls.Add(this.btnViewOrder);
@@ -141,6 +144,16 @@
             this.tbOrders.TabIndex = 1;
             this.tbOrders.Text = "Orders";
             this.tbOrders.UseVisualStyleBackColor = true;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(714, 324);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(97, 35);
+            this.btnRefresh.TabIndex = 23;
+            this.btnRefresh.Text = "Refresh Page";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label3
             // 
@@ -160,6 +173,7 @@
             this.btnExit2.TabIndex = 3;
             this.btnExit2.Text = "Exit";
             this.btnExit2.UseVisualStyleBackColor = true;
+            this.btnExit2.Click += new System.EventHandler(this.btnExit2_Click);
             // 
             // btnViewOrder
             // 
@@ -177,7 +191,7 @@
             this.btnDeleteOrder.Name = "btnDeleteOrder";
             this.btnDeleteOrder.Size = new System.Drawing.Size(95, 35);
             this.btnDeleteOrder.TabIndex = 1;
-            this.btnDeleteOrder.Text = "Delete Order";
+            this.btnDeleteOrder.Text = "Delete Order/s";
             this.btnDeleteOrder.UseVisualStyleBackColor = true;
             this.btnDeleteOrder.Click += new System.EventHandler(this.btnDeleteOrder_Click);
             // 
@@ -194,7 +208,6 @@
             this.clmnCustomerName});
             this.grdOrders.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.grdOrders.Location = new System.Drawing.Point(14, 61);
-            this.grdOrders.MultiSelect = false;
             this.grdOrders.Name = "grdOrders";
             this.grdOrders.ReadOnly = true;
             this.grdOrders.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -275,6 +288,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnQtyOrdered;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnTotalOrderPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmnCustomerName;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

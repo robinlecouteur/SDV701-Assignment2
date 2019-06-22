@@ -11,7 +11,7 @@
 
     <Grid>
         <ListView x:Name="lstCategories" HorizontalAlignment="Left" Height="319" Margin="27,153,0,0" VerticalAlignment="Top" Width="446" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
-        <TextBlock HorizontalAlignment="Left" Margin="368,10,0,0" Text="PC Shop Store" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="368,10,0,0" Text="PC Shop Store" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" FontWeight="Bold" FontFamily="Arial"/>
         <TextBlock HorizontalAlignment="Left" Margin="23,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Normal"><Run Text="Welcome to the PCShop Store!"/><LineBreak/><Run Text="Please select a category to continue"/></TextBlock>
         <Button x:Name="btnViewCategory" Content="View Category" HorizontalAlignment="Left" Margin="498,149,0,0" VerticalAlignment="Top" Width="120" Click="btnViewCategory_Click"/>
         <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="33,586,0,0" VerticalAlignment="Top" Width="111" Click="btnExit_Click"/>
