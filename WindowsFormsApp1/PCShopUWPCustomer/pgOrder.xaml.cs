@@ -29,6 +29,10 @@ namespace PCShopUWPCustomer
             txtPricePerItem.Text = _Item.Price.ToString().EmptyIfNull();
             txtQtyInStock.Text = _Item.QtyInStock.ToString().EmptyIfNull();
             txtNewOrUsed.Text = _Item.NewOrUsed.ToString().EmptyIfNull();
+            if (int.Parse(txtQtyToOrder.Text) > _Item.QtyInStock)
+            {
+                txtQtyToOrder.Text = _Item.QtyInStock.ToString();
+            }
             updateTotalOrderPrice(_Item);
         }
 
