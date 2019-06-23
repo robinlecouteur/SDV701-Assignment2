@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PCShopSelfHost
 {
+    /// <summary>
+    /// Author: Robin Le Couteur
+    /// Date: 23/06/2019
+    /// 
+    /// This code manages the connection to the database
+    /// </summary>
     public static class clsDbConnection
     {
         private static ConnectionStringSettings ConnectionStringSettings = ConfigurationManager.ConnectionStrings["PCShopDatabase"];

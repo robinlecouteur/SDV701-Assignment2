@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
+/// <summary>
+/// Author: Robin Le Couteur
+/// Date: 23/06/2019
+/// 
+/// This code file contains the data definition classes
+/// </summary>
 namespace PCShopSelfHost
 {
     public class clsCategory
@@ -38,7 +43,7 @@ namespace PCShopSelfHost
         public int ItemID { get; set; }
         public clsAllItem OrderItem { get; set; }
 
-        public decimal TotalOrderPrice { get => (PricePerItem * Qnty); }
+        public decimal TotalOrderPrice { get => (PricePerItem * Qnty); } // Calculates total order price when accessed
         public string OrderItemModel
         {
             get

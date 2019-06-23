@@ -1,31 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
+/// <summary>
+/// Author: Robin Le Couteur
+/// Date: 23/06/2019
+/// 
+/// This code file contains all the code for using MQTT and the code that uses the observer pattern
+/// to notify all subscribed forms to update when the MQTT client recieves a DBUpdate message
+/// </summary>
 namespace PCShopSelfHost
 {
+    /// <summary>
+    /// Interface for the subject, in my case the mqtt client is the subject so it inherits from this.
+    /// </summary>
     public interface ISubject
     {
         void Subscribe(IObserver observer);
         void Unsubscribe(IObserver observer);
         void Notify(string lcMessage);
     }
+
+    /// <summary>
+    /// Interface for the observer. 
+    /// All forms that need to be notified of DBUpdate events need to implement this
+    /// </summary>
     public interface IObserver
     {
         void MqttUpdate(string lcMessage);
     }
 
 
-
+    /// <summary>
+    /// Contains all the code for the mqtt client
+    /// </summary>
     public class clsMQTTClient : ISubject
     {
-
+        // List of all observers (The forms implementing IObserver)
         private List<IObserver> observers = new List<IObserver>();
-
 
         public void Notify(string lcMessage)
         {
@@ -45,15 +59,19 @@ namespace PCShopSelfHost
 
 
 
-
+        //Singleton - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         private clsMQTTClient()
         {
         }
         public static readonly clsMQTTClient Instance = new clsMQTTClient();
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 
         private MqttClient client;
         private string clientId;
 
+        //Connects the client to the mqtt broker 
         public void ConnectMqttClient()
         {
             string BrokerAddress = "broker.hivemq.com";
@@ -99,19 +117,11 @@ namespace PCShopSelfHost
             string ReceivedMessage = Encoding.UTF8.GetString(e.Message);
 
 
+            //If the client recieves a DBChange message notify the observers to update their screens
             if (ReceivedMessage == "DBChange")
             {
-                Notify("Success!");
+                Notify("DBChange");
             }
-
-            if (ReceivedMessage == "TestUpdate")
-            {
-
-            }
-
-            // Dispatcher.Invoke(delegate {              // we need this construction because the receiving code in the library and the UI with textbox run on different threads
-            //    txtReceived.Text = ReceivedMessage;
-            // });
         }
 
 

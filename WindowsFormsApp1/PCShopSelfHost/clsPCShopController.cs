@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 
+/// <summary>
+/// Author: Robin Le Couteur
+/// Date: 23/06/2019
+/// 
+/// This code file contains the controller which is what the clients communicate with when they want to access the database
+/// </summary>
 namespace PCShopSelfHost
 {
     public class clsPCShopController : ApiController
@@ -14,7 +17,8 @@ namespace PCShopSelfHost
         // ################################     CATEGORY     ##################################
         // ####################################################################################
 
-        public List<clsCategory> GetCategoryList()
+        
+        public List<clsCategory> GetCategoryList()// Get
         {
             DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Category", null);
             List<clsCategory> lcCategoryList = new List<clsCategory>();
@@ -22,7 +26,7 @@ namespace PCShopSelfHost
                 lcCategoryList.Add(dataRow2Category(dr));
             return lcCategoryList;
         }
-        public clsCategory GetCategory(int ID)
+        public clsCategory GetCategory(int ID)// Get
         {
             Dictionary<string, object> par = new Dictionary<string, object>(1);
             par.Add("ID", ID);
@@ -41,11 +45,14 @@ namespace PCShopSelfHost
         }
        
 
+
+
+
         // ####################################################################################
         // ##################################     ITEM     ####################################
         // ####################################################################################
-        public string DeleteItem(clsAllItem prItem)
-        { // delete
+        public string DeleteItem(clsAllItem prItem)// Delete
+        { 
             try
             {
                 DataTable lcOrders = clsDbConnection.GetDataTable("SELECT * FROM [Order] Where ItemID = @ID", prepareItemParameters(prItem));
@@ -71,12 +78,14 @@ namespace PCShopSelfHost
                 return ex.GetBaseException().Message;
             }
         }
-        public string PutItem(clsAllItem prItem)
+        public string PutItem(clsAllItem prItem)// Update
         { // update 
             try
             {
-                if (prItem.LastModified == (GetItem(prItem.ID)).LastModified)
+                // Check concurrency. If the lastModified matches go ahead otherwise throw an exception
+                if (prItem.LastModified == (GetItem(prItem.ID)).LastModified) 
                 {
+                    //Update lastmodified 
                     prItem.LastModified = DateTime.Now;
 
                     int lcRecCount = clsDbConnection.Execute(
@@ -103,7 +112,7 @@ namespace PCShopSelfHost
                 return ex.GetBaseException().Message;
             }
         }
-        public string PostItem(clsAllItem prItem)
+        public string PostItem(clsAllItem prItem)// Insert
         { // insert 
             try
             {
@@ -136,7 +145,7 @@ namespace PCShopSelfHost
         }
 
         //ITEM
-        public clsAllItem GetItem(int ID)
+        public clsAllItem GetItem(int ID)// Get
         {
             Dictionary<string, object> par = new Dictionary<string, object>(1);
             par.Add("ID", ID);
@@ -152,10 +161,12 @@ namespace PCShopSelfHost
         }
 
 
+
+
         // ####################################################################################
         // #################################     ORDER     ####################################
         // ####################################################################################
-        public List<clsOrder> GetOrderList()
+        public List<clsOrder> GetOrderList()// Get
         {
             DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM [Order]", null);
             List<clsOrder> lcOrderList = new List<clsOrder>();
@@ -167,8 +178,8 @@ namespace PCShopSelfHost
             }
                 
             return lcOrderList;
-        }
-        public clsOrder GetOrder(int OrderNo)
+        } 
+        public clsOrder GetOrder(int OrderNo)// Get
         {
             Dictionary<string, object> par = new Dictionary<string, object>(1);
             par.Add("OrderNo", OrderNo);
@@ -183,9 +194,7 @@ namespace PCShopSelfHost
             else
                 return null;
         }
-
-
-        public string DeleteOrder(clsOrder prOrder)
+        public string DeleteOrder(clsOrder prOrder) // Delete
         { // delete
             try
             {
@@ -205,13 +214,7 @@ namespace PCShopSelfHost
                 return ex.GetBaseException().Message;
             }
         }
-
-        /// <summary>
-        /// Inserts an order into the database
-        /// </summary>
-        /// <param name="prOrder"></param>
-        /// <returns></returns>
-        public string PostOrder(clsOrder prOrder)
+        public string PostOrder(clsOrder prOrder) // Insert
         { 
             try
             {

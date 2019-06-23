@@ -2,7 +2,12 @@
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 
-
+/// <summary>
+/// Author: Robin Le Couteur
+/// Date: 23/06/2019
+/// 
+/// This code file contains the code for starting and stopping the server and mqtt client
+/// </summary>
 namespace PCShopSelfHost
 {
     class Program
@@ -23,12 +28,9 @@ namespace PCShopSelfHost
 
             // Start listening
             server.OpenAsync().Wait();
+
+            // Connect mqtt client
             clsMQTTClient.Instance.ConnectMqttClient();
-
-
-
-
-            
 
 
             Console.WriteLine("PCShop Web-API Self hosted on " + _baseAddress +
@@ -36,8 +38,9 @@ namespace PCShopSelfHost
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
             server.CloseAsync().Wait();
+
+            // Disconnect mqtt client
             clsMQTTClient.Instance.DisconnectMqttClient();
-            //await mqttServer.StopAsync();
         }
 
 //TextArt
