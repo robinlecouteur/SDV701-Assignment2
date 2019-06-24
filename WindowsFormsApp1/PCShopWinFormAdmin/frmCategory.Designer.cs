@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.grdItems = new System.Windows.Forms.DataGridView();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmQtyInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -47,6 +42,11 @@
             this.cboItemType = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmQtyInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -67,54 +67,6 @@
             this.grdItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdItems.Size = new System.Drawing.Size(636, 357);
             this.grdItems.TabIndex = 0;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column4.DataPropertyName = "ID";
-            this.Column4.FillWeight = 101.5228F;
-            this.Column4.HeaderText = " ID";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 44;
-            // 
-            // Column5
-            // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column5.DataPropertyName = "NewOrUsed";
-            this.Column5.HeaderText = "New or Used";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 92;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.DataPropertyName = "Model";
-            this.Column1.FillWeight = 99.49239F;
-            this.Column1.HeaderText = "Model";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column2.DataPropertyName = "Price";
-            this.Column2.FillWeight = 99.49239F;
-            this.Column2.HeaderText = "Price Per Item";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 96;
-            // 
-            // clmQtyInStock
-            // 
-            this.clmQtyInStock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clmQtyInStock.DataPropertyName = "QtyInStock";
-            this.clmQtyInStock.FillWeight = 99.49239F;
-            this.clmQtyInStock.HeaderText = "Qty in Stock";
-            this.clmQtyInStock.Name = "clmQtyInStock";
-            this.clmQtyInStock.ReadOnly = true;
-            this.clmQtyInStock.Width = 88;
             // 
             // btnAddItem
             // 
@@ -243,6 +195,54 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column4.DataPropertyName = "ID";
+            this.Column4.FillWeight = 101.5228F;
+            this.Column4.HeaderText = " ID";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 44;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column5.DataPropertyName = "NewOrUsed";
+            this.Column5.HeaderText = "New or Used";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 92;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.DataPropertyName = "Model";
+            this.Column1.FillWeight = 99.49239F;
+            this.Column1.HeaderText = "Model";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column2.DataPropertyName = "Price";
+            this.Column2.FillWeight = 99.49239F;
+            this.Column2.HeaderText = "Price Per Item";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 96;
+            // 
+            // clmQtyInStock
+            // 
+            this.clmQtyInStock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clmQtyInStock.DataPropertyName = "QtyInStock";
+            this.clmQtyInStock.FillWeight = 99.49239F;
+            this.clmQtyInStock.HeaderText = "Qty in Stock";
+            this.clmQtyInStock.Name = "clmQtyInStock";
+            this.clmQtyInStock.ReadOnly = true;
+            this.clmQtyInStock.Width = 88;
+            // 
             // frmCategory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,11 +285,11 @@
         private System.Windows.Forms.TextBox txtCategoryName;
         private System.Windows.Forms.ComboBox cboItemType;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmQtyInStock;
-        private System.Windows.Forms.Button btnRefresh;
     }
 }

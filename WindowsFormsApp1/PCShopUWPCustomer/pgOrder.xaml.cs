@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 namespace PCShopUWPCustomer
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Order page
     /// </summary>
     public sealed partial class pgOrder : Page,IObserver
     {
@@ -29,10 +29,15 @@ namespace PCShopUWPCustomer
             txtPricePerItem.Text = _Item.Price.ToString().EmptyIfNull();
             txtQtyInStock.Text = _Item.QtyInStock.ToString().EmptyIfNull();
             txtNewOrUsed.Text = _Item.NewOrUsed.ToString().EmptyIfNull();
-            if (int.Parse(txtQtyToOrder.Text) > _Item.QtyInStock)
+
+            if (String.IsNullOrEmpty(txtQtyToOrder.Text) == false)
             {
-                txtQtyToOrder.Text = _Item.QtyInStock.ToString();
+                if (int.Parse(txtQtyToOrder.Text) > _Item.QtyInStock)
+                {
+                    txtQtyToOrder.Text = _Item.QtyInStock.ToString();
+                }
             }
+
             updateTotalOrderPrice(_Item);
         }
 
